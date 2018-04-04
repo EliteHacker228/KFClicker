@@ -1,4 +1,4 @@
-package com.example.max.kfcliclker_v20;
+package com.example.max.kfclicker14;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
 
-   int rangcounter = 0;
-   int money_score = 0;
-   int money_per_time = 1;
-   int money_delay=1000;
-   int money_per_click=1;
-   int lowest_border = 10;
+    int rangcounter = 0;
+    int money_score = 0;
+    int money_per_time = 1;
+    int money_delay=1000;
+    int money_per_click=1;
+    int lowest_border = 10;
 
-   // ListView lv;
+    // ListView lv;
 
     final String SAVED_MONEY_SCORE = "SAVED_SCORE";
     final String SAVED_MONEY_PER_TIME = "SAVED_MONEY_PER_TIME";
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     TextView chicken_ranc;      //ранг
     TextView chicken_cps;       //куриц в секунду
     TextView chicken_counter;   //сколько куриц нужно
-                                // для повышения
+    // для повышения
 
 
     ImageView kfc_screen_wing;
@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
         chicken_ranc=findViewById(R.id.chicken_ranc);
         chicken_cps=findViewById(R.id.chicken_cps);
         chicken_counter=findViewById(R.id.chicken_counter);
-        if(SAVED_LOWEST_BORDER.equals("SAVED_LOWEST_BORDER")) {
-            loadData();
-        }
+       // if(SAVED_LOWEST_BORDER.equals("SAVED_LOWEST_BORDER")) {
+          loadData();
+       // }
         chicken_cpc.setText("Крц за клик: "+money_per_click);
         chicken_cps.setText("Крц в секунду: "+money_per_time);
 
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         AutoClickerThread act = new AutoClickerThread();
         act.start();
+        Log.d("Activity: ", "Thread running");
 
 
 
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 money_per_time=money_per_time+1;
                 money_per_click=money_per_click+1;
                 money_score=money_score-lowest_border;
+                Log.d("Деньги", "Инкремент");
 
                 lowest_border=lowest_border+(rangcounter*30);
                 chicken_cpc.setText("Крц за клик: "+money_per_click);
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 chicken_ranc.setText(getranc(rangcounter));
 
                 if(rangcounter>=20){
-                   chicken_counter.setText("");
+                    chicken_counter.setText("");
                 }
 
 
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             money_score = money_score +money_per_click;
+            Log.d("Деньги", "Инкремент");
             kfc_screen_score.setText("Счёт: "+Integer.toString(money_score));
 
             chickenhandler = new Handler() {
@@ -173,8 +176,9 @@ public class MainActivity extends AppCompatActivity {
             while (true) {
                 saveData();
                 try {
-                    AutoClickerThread.sleep(money_delay);
+                    AutoClickerThread.sleep(1000);
                     money_score = money_score + money_per_time;
+                    Log.d("Деньги", "Инкремент");
                     scorehandler.sendEmptyMessage(money_score);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -188,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(SAVED_MONEY_SCORE, money_score);
+        Log.d("Деньги", "Инкремент");
         editor.putInt(SAVED_MONEY_PER_TIME, money_per_time);
         editor.putInt(SAVED_MONEY_DELAY, money_delay);
         editor.putInt(SAVED_MONEY_PER_CLICK, money_per_click);
@@ -199,11 +204,12 @@ public class MainActivity extends AppCompatActivity {
     void loadData() {
         sharedPreferences = getPreferences(MODE_PRIVATE);
         this.money_score = sharedPreferences.getInt(SAVED_MONEY_SCORE, 0);
-        this.money_per_time = sharedPreferences.getInt(SAVED_MONEY_PER_TIME, 0);
+        Log.d("Деньги", "Инкремент");
+        this.money_per_time = sharedPreferences.getInt(SAVED_MONEY_PER_TIME, 1);
         this.money_delay = sharedPreferences.getInt(SAVED_MONEY_DELAY, 0);
-        this.money_per_click = sharedPreferences.getInt(SAVED_MONEY_PER_CLICK, 0);
+        this.money_per_click = sharedPreferences.getInt(SAVED_MONEY_PER_CLICK, 1);
         this.rangcounter = sharedPreferences.getInt(SAVED_RANGCOUNTER, 0);
-        this.lowest_border = sharedPreferences.getInt(SAVED_LOWEST_BORDER, 0);
+        this.lowest_border = sharedPreferences.getInt(SAVED_LOWEST_BORDER, 10);
 
     }
 
@@ -211,27 +217,27 @@ public class MainActivity extends AppCompatActivity {
 
         String[] rancs = new String[21];
 //
-     rancs[0]="Желторотик";
-     rancs[1]="Продвинутый";
-     rancs[2]="Босс этой качалки";
-     rancs[3]="Полковник";
-     rancs[4]="Нига";
-     rancs[5]="Профессиональный баскетболист";
-     rancs[6]="Андроид";
-     rancs[7]="Star Platinum";
-     rancs[8]="mr.robot";
-     rancs[9]="Джонатан Джостар";
-     rancs[10]="Человек, которому нечем заняться";
-     rancs[11]="sample text";
-     rancs[12]="illuminati";
-     rancs[13]="xXx_NaGiBaToR_228";
-     rancs[14]="MLG";
-     rancs[15]="360 noscope";
-     rancs[16]="Миллиардер";
-     rancs[17]="Сколько ты там уже накликал?";
-     rancs[18]="uTorrent";
-     rancs[19]="Steam";
-     rancs[20]="Его величество Gabe N";
+        rancs[0]="Желторотик";
+        rancs[1]="Продвинутый";
+        rancs[2]="Босс этой качалки";
+        rancs[3]="Полковник";
+        rancs[4]="Нига";
+        rancs[5]="Профессиональный баскетболист";
+        rancs[6]="Андроид";
+        rancs[7]="Star Platinum";
+        rancs[8]="mr.robot";
+        rancs[9]="Джонатан Джостар";
+        rancs[10]="Человек, которому нечем заняться";
+        rancs[11]="sample text";
+        rancs[12]="illuminati";
+        rancs[13]="xXx_NaGiBaToR_228";
+        rancs[14]="MLG";
+        rancs[15]="360 noscope";
+        rancs[16]="Миллиардер";
+        rancs[17]="Сколько ты там уже накликал?";
+        rancs[18]="uTorrent";
+        rancs[19]="Steam";
+        rancs[20]="Его величество Gabe N";
 
 
 

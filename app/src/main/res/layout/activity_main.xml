@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.max.kfcliclker_v20.MainActivity">
+    tools:context="com.example.max.kfclicker14.MainActivity">
 
 
     <ImageView
@@ -126,4 +126,3 @@
 
 
 </android.support.constraint.ConstraintLayout>
-
