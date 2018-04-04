@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         chicken_cps.setText("Крц в секунду: "+money_per_time);
 
         chicken_counter.setText("Наберите "+lowest_border+" чтобы повысить ранг");
-        chicken_ranc.setText("Ваш ранг: "+getranc(rangcounter));
+        chicken_ranc.setText(getranc(rangcounter));
 
         scorehandler = new Handler() {   // создание хэндлера
             @Override
@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
             if(rangcounter<20&&money_score>=lowest_border) {
                 rangcounter++;
-                money_per_time=money_per_time+1;
+               // money_per_time=money_per_time+;
+                moneyUp();
                 money_per_click=money_per_click+1;
                 money_score=money_score-lowest_border;
                 Log.d("Деньги", "Инкремент");
@@ -199,6 +200,12 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt(SAVED_RANGCOUNTER, rangcounter);
         editor.putInt(SAVED_LOWEST_BORDER, lowest_border);
         editor.commit();
+    }
+
+    void moneyUp(){
+        if(money_per_click%2==0){
+            money_per_time++;
+        }
     }
 
     void loadData() {
